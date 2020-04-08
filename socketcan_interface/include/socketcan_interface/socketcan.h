@@ -55,13 +55,14 @@ public:
                 return false;
             }
             can_err_mask_t err_mask =
-                ( CAN_ERR_TX_TIMEOUT   /* TX timeout (by netdevice driver) */
-                //CAN_ERR_LOSTARB      /* lost arbitration    / data[0]  (Not an error)  */
-                | CAN_ERR_CRTL         /* controller problems / data[1]    */
-                //CAN_ERR_PROT         /* protocol violations / data[2..3]  (Not an error)  */
-                | CAN_ERR_TRX          /* transceiver status  / data[4]    */
-                | CAN_ERR_ACK           /* received no ACK on transmission */
-                | CAN_ERR_BUSOFF        /* bus off */
+                (
+                //CAN_ERR_TX_TIMEOUT    /* TX timeout (by netdevice driver, no critical error) */
+                //CAN_ERR_LOSTARB       /* lost arbitration    / data[0] (Not an error) */
+                //CAN_ERR_CRTL          /* controller problems / data[1] (Not a critical error) */
+                //CAN_ERR_PROT          /* protocol violations / data[2..3] (Not a critical error) */
+                //CAN_ERR_TRX           /* transceiver status  / data[4] (Not a critical error) */
+                //CAN_ERR_ACK           /* received no ACK on transmission (Not a critical error) */
+                  CAN_ERR_BUSOFF        /* bus off */
                 //CAN_ERR_BUSERROR      /* bus error (may flood!) */
                 | CAN_ERR_RESTARTED     /* controller restarted */
             );
